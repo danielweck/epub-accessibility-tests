@@ -3,6 +3,95 @@
 <title>MathML tests</title>
 <meta charset="UTF-8"/>
 <link rel="stylesheet" type="text/css" href="../Styles/base.css" />
+
+<script xmlns="http://www.w3.org/1999/xhtml" id="thorium_mathJax_script" type="text/javascript">
+  // document.addEventListener("DOMContentLoaded", () =&gt; {
+  // });
+  window.addEventListener("load", () =&gt; {
+      setTimeout(() =&gt; {
+          var thisEl = document.getElementById('thorium_mathJax_script');
+  
+          if (window.MathJax) {
+              var msg = 'window.MathJax already exist, SKIP.';
+              if (thisEl) {
+                  thisEl.setAttribute('data-msg', msg);
+              }
+              console.log(msg);
+              return;
+          }
+  
+          if (document.getElementById('__thorium_mathJax_script')) {
+              var msg = 'thorium_mathJax_script already exist, SKIP.';
+              if (thisEl) {
+                  thisEl.setAttribute('data-msg', msg);
+              }
+              console.log(msg);
+              return;
+          }
+  
+          // http://docs.mathjax.org/en/v3.2-latest/options/accessibility.html#explorer-extension-options
+          window.MathJax = {
+              
+  options: {
+      // enableExplorer: true,
+      // enableAssistiveMml: true,
+      menuOptions: {
+          settings: {
+              explorer: true,
+              // assistiveMml: true
+          }
+      },
+      a11y: {
+          speech: true,
+          subtitles: false,
+          braille: false
+      }
+  },
+  
+              startup: {
+                  ready: () =&gt; {
+  
+                      var msg = 'MathJax is loaded, but not yet initialized';
+                      if (thisEl) {
+                          thisEl.setAttribute('data-msg', msg);
+                      }
+                      console.log(msg);
+  
+                      window.MathJax.startup.defaultReady();
+  
+                      msg = 'MathJax is initialized, and the initial typeset is queued';
+                      if (thisEl) {
+                          thisEl.setAttribute('data-msg', msg);
+                      }
+                      console.log(msg);
+  
+                      window.MathJax.startup.promise.then(() =&gt; {
+                          var msg = 'MathJax initial typesetting complete';
+                          if (thisEl) {
+                              thisEl.setAttribute('data-msg', msg);
+                          }
+                          console.log(msg);
+                      });
+                  }
+              }
+          };
+  
+          var msg = 'Thorium MathJax ...';
+          if (thisEl) {
+              thisEl.setAttribute('data-msg', msg);
+          }
+          console.log(msg);
+  
+          var scriptEl = document.createElement('script');
+          scriptEl.setAttribute('id', '__thorium_mathJax_script');
+          // scriptEl.setAttribute('async', 'async');
+          scriptEl.setAttribute('onload', 'javascript:console.log("Thorium MathJax LOADED.")');
+          scriptEl.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js');
+          document.head.appendChild(scriptEl);
+      }, 500);
+  });
+  </script>
+
 </head>
 
 <body>
