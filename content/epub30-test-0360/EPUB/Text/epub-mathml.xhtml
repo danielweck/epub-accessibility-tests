@@ -32,7 +32,7 @@
           // http://docs.mathjax.org/en/v3.2-latest/options/accessibility.html#explorer-extension-options
           window.MathJax = {
               
-  options: {
+  options: (new URLSearchParams(window.location.search || "")).get("xx") ? undefined : {
       // enableExplorer: true,
       // enableAssistiveMml: true,
       menuOptions: {
